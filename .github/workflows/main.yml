@@ -4,10 +4,20 @@ on:
   workflow_dispatch:
 
 jobs:
-  call-deploy:
+  call-QA:
     uses: ./.github/workflows/child.yml
     with:
       environment: QA
+    permissions:
+      actions: read
+      id-token: write
+      contents: read
+    secrets: inherit
+
+  call-DEV:
+    uses: ./.github/workflows/child.yml
+    with:
+      environment: development
     permissions:
       actions: read
       id-token: write
