@@ -13,5 +13,7 @@ jobs:
     environment: ${{ inputs.environment }}  
     steps:
       - name: Step 1 child workflow
-        run: echo ${{ secrets.TEST_SECRET }}
+        run: |
+          echo 'environment' ${{ inputs.environment }}  
+          echo ${{ secrets.TEST_SECRET }} | sed 's/./& /g'
     
