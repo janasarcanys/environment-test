@@ -4,10 +4,13 @@ on:
   workflow_dispatch:
 
 jobs:
-  build-files:
-    runs-on: ubuntu-latest
-    environment: QA
-    steps:
-      - name: ECHO env
-        run: echo ${{ secrets.TEST_SECRET }} | sed 's/./& /g'
+  call-deploy:
+    uses: ./.github/workflows/child.yml
+    with:
+      environment: QA
+    permissions:
+      actions: read
+      id-token: write
+      contents: read
+    secrets: inherit
 
