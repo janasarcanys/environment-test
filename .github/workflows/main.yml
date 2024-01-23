@@ -17,7 +17,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Test if
-        run: echo "building" ${{ github.event.inputs.project }} ${{ github.event.inputs.project }}
+        run: if git ${{ github.event_name == "workflow_dispatch" }}; then echo "WFLOW DISPATCH" else echo "NOT WORKFLOW"; fi 
     if: ${{ github.event.inputs.project == 'admin' }} || ${{ github.event.inputs.project == 'api' }}
 
   call-QA:
