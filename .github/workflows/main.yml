@@ -17,8 +17,16 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Test if
-        run: if ${{ github.event_name == 'workflow_dispatch' }}; then echo "WFLOW DISPATCH" else echo "NOT WORKFLOW"; fi 
-    if: ${{ github.event.inputs.project == 'admin' }} || ${{ github.event.inputs.project == 'api' }}
+        run: |
+          ls
+          echo ${{ github.ref }}
+          ref='refs/tags/v'
+          if [[ ${{ github.event_name == 'workflow_dispatch' }} ]]; then
+            echo "WFLOW DISPATCH"
+          else
+            echo "NOT WORKFLOW"
+          fi
+
 
   call-QA:
     uses: ./.github/workflows/child.yml
