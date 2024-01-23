@@ -12,6 +12,7 @@ on:
           - admin
           - mobile-react
           - api
+  push:
 jobs:
   build:
     runs-on: ubuntu-latest
@@ -22,9 +23,9 @@ jobs:
           echo ${{ github.ref }}
           ref='refs/tags/v'
           if [[ ${{ github.event_name == 'workflow_dispatch' }} ]]; then
-            echo "WFLOW DISPATCH"
+            echo ${{ github.event.inputs.my_value }}
           else
-            echo "NOT WORKFLOW"
+            echo ${{ github.event.inputs.my_value }}
           fi
 
 
