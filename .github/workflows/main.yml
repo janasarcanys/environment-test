@@ -23,9 +23,9 @@ jobs:
           echo ${{ github.ref }}
           ref='refs/tags/v'
           if [[ ${{ github.event_name == 'workflow_dispatch' }} ]]; then
-            echo ${{ github.event.inputs.my_value }}
+            echo WFD ${{ github.event.inputs.my_value }}
           else
-            echo ${{ github.event.inputs.my_value }}
+            echo PUSH ${{ github.event.inputs.my_value }}
           fi
 
 
