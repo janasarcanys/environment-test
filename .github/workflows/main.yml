@@ -22,9 +22,9 @@ jobs:
           ls
           githubeventname=${{ github.event_name }}
           if [[ $githubeventname == workflow_dispatch ]]; then
-            echo WFD ${{ github.event.inputs.my_value }}
+            echo WFD ${{ github.event.inputs.project }}
           else
-            echo PUSH ${{ github.event.inputs.my_value }}
+            echo PUSH ${{ github.event.inputs.project }}
           fi
 
           if [ 2 -gt 1 ]; then
