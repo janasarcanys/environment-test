@@ -12,6 +12,7 @@ on:
           - admin
           - mobile-react
           - api
+    workflow_call:
   push:
 jobs:
   build:
