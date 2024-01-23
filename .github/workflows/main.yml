@@ -28,6 +28,12 @@ jobs:
             echo PUSH ${{ github.event.inputs.my_value }}
           fi
 
+          if [ 2 -gt 1 ]; then
+            echo "2 is greater than 1"
+            else
+            echo "xxxx"
+          fi
+
 
   call-QA:
     uses: ./.github/workflows/child.yml
