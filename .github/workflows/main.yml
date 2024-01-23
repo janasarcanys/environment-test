@@ -2,7 +2,16 @@ name: test
 
 on:
   workflow_dispatch:
-
+    inputs:
+      project:
+        description: 'project'
+        required: true
+        default: 'admin'
+        type: choice
+        options:
+          - admin
+          - mobile-react
+          - api
 jobs:
   call-QA:
     uses: ./.github/workflows/child.yml
@@ -13,6 +22,7 @@ jobs:
       id-token: write
       contents: read
     secrets: inherit
+    if: ${{ github.event.inputs.message == 'admin' }} || ${{ github.event.inputs.message == 'api' }}
 
   call-DEV:
     uses: ./.github/workflows/child.yml
