@@ -13,6 +13,13 @@ on:
           - mobile-react
           - api
 jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Test if
+        run: echo "building" ${{ github.event.inputs.project }} ${{ github.event.inputs.project }}
+    if: ${{ github.event.inputs.project == 'admin' }} || ${{ github.event.inputs.project == 'api' }}
+
   call-QA:
     uses: ./.github/workflows/child.yml
     with:
@@ -22,7 +29,7 @@ jobs:
       id-token: write
       contents: read
     secrets: inherit
-    if: ${{ github.event.inputs.project == 'admin' }} || ${{ github.event.inputs.project == 'api' }}
+    
 
   call-DEV:
     uses: ./.github/workflows/child.yml
