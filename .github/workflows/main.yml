@@ -12,7 +12,15 @@ on:
           - admin
           - mobile-react
           - api
-    workflow_call:
+      environment:
+        description: 'environment'
+        required: true
+        default: 'QA'
+        type: choice
+        options:
+          - QA
+          - Staging
+  workflow_call:
   push:
 jobs:
   build:
@@ -47,6 +55,7 @@ jobs:
     
 
   call-DEV:
+    if: github.event.inputs.project == 'Staging'
     uses: ./.github/workflows/child.yml
     with:
       environment: development
