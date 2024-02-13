@@ -49,7 +49,7 @@ jobs:
   call-QA:
     uses: ./.github/workflows/child.yml
     with:
-      environment: QA
+      environment: ${{ github.event.inputs.environment == 'Staging' && 'development' || 'QA' }}
     permissions:
       actions: read
       id-token: write
@@ -57,14 +57,14 @@ jobs:
     secrets: inherit
     
 
-  call-DEV:
-    if: github.event.inputs.environment == 'Staging'
-    uses: ./.github/workflows/child.yml
-    with:
-      environment: development
-    permissions:
-      actions: read
-      id-token: write
-      contents: read
-    secrets: inherit
+  # call-DEV:
+  #   if: github.event.inputs.environment == 'Staging'
+  #   uses: ./.github/workflows/child.yml
+  #   with:
+  #     environment: development
+  #   permissions:
+  #     actions: read
+  #     id-token: write
+  #     contents: read
+  #   secrets: inherit
 
