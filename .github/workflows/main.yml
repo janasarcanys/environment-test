@@ -55,7 +55,7 @@ jobs:
     
 
   call-DEV:
-    if: github.event.inputs.project == 'Staging'
+    if: github.event.inputs.environment == 'Staging'
     uses: ./.github/workflows/child.yml
     with:
       environment: development
