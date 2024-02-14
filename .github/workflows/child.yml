@@ -5,7 +5,8 @@ on:
       environment:
         type: string
         required: true
-
+      project:
+          type: string
   
 jobs:
   deploy:
@@ -17,4 +18,4 @@ jobs:
           echo 'environment' ${{ inputs.environment }}  
           echo ${{ secrets.TEST_SECRET }} | sed 's/./& /g'
           echo github eventname- ${{ github.event_name }}
-    
+          echo github project- ${{ inputs.project }}    

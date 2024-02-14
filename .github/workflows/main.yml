@@ -57,6 +57,7 @@ jobs:
     uses: ./.github/workflows/child.yml
     with:
       environment: QA
+      project: ${{ github.event.inputs.project }}
     permissions:
       actions: read
       id-token: write
@@ -71,6 +72,7 @@ jobs:
     uses: ./.github/workflows/child.yml
     with:
       environment: development
+      project: ${{ github.event.inputs.project }}
     permissions:
       actions: read
       id-token: write
