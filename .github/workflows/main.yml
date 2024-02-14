@@ -67,7 +67,7 @@ jobs:
   call-DEV:
     needs: build
     name: Deploy to Dev
-    if: github.event_name == 'push' || (github.event_name == 'workflow_dispatch' && github.event.inputs.environment == 'development')
+    if: (github.event_name == 'push') || (github.event_name == 'workflow_dispatch' && github.event.inputs.environment == 'development')
     uses: ./.github/workflows/child.yml
     with:
       environment: development

@@ -16,4 +16,5 @@ jobs:
         run: |
           echo 'environment' ${{ inputs.environment }}  
           echo ${{ secrets.TEST_SECRET }} | sed 's/./& /g'
+          echo github eventname- ${{ github.event_name }}
     
