@@ -52,6 +52,7 @@ jobs:
 
 
   call-QA:
+    needs: build
     name: Deploy to QA
     uses: ./.github/workflows/child.yml
     with:
@@ -64,6 +65,7 @@ jobs:
     if:  github.event_name == 'push' || (github.event_name == 'workflow_dispatch' && github.event.inputs.environment == 'QA')
 
   call-DEV:
+    needs: build
     name: Deploy to Dev
     if: github.event_name == 'push' || (github.event_name == 'workflow_dispatch' && github.event.inputs.environment == 'development')
     uses: ./.github/workflows/child.yml
@@ -76,6 +78,7 @@ jobs:
     secrets: inherit
 
   call-staging:
+    needs: build
     name: Deploy to Staging
     if: (github.event_name == 'release' && startsWith(github.event.release.tag_name, 'v')) || (github.event_name == 'workflow_dispatch' && github.event.inputs.environment == 'Staging')
     uses: ./.github/workflows/child.yml
