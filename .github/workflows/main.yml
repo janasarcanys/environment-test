@@ -1,4 +1,4 @@
-name: test
+name: Deploy 
 
 on:
   workflow_dispatch:
@@ -20,6 +20,7 @@ on:
         options:
           - QA
           - Staging
+          - development
   workflow_call:
 
   release:
@@ -28,7 +29,7 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
-    environment: ${{ github.event.inputs.environment == 'Staging' && 'Staging' || 'QA' }}
+    environment: QA
     steps:
       - name: Test if
         run: |
@@ -50,18 +51,20 @@ jobs:
 
 
   call-QA:
+    name: Deploy to QA
     uses: ./.github/workflows/child.yml
     with:
-      environment: ${{ github.event.inputs.environment == 'Staging' && 'development' || 'QA' }}
+      environment: QA
     permissions:
       actions: read
       id-token: write
       contents: read
     secrets: inherit
-    
+    if:  github.event_name == 'push' || (github.event_name == 'workflow_dispatch' && github.event.inputs.environment == 'QA')
 
   call-DEV:
-    if: github.event.inputs.environment == 'development'
+    name: Deploy to Dev
+    if: github.event_name == 'push' || (github.event_name == 'workflow_dispatch' && github.event.inputs.environment == 'development')
     uses: ./.github/workflows/child.yml
     with:
       environment: development
@@ -71,9 +74,9 @@ jobs:
       contents: read
     secrets: inherit
 
-  DeployToStaging:
+  call-staging:
     name: Deploy to Staging
-    if: github.event_name == 'release' && startsWith(github.event.release.tag_name, 'v')
+    if: (github.event_name == 'release' && startsWith(github.event.release.tag_name, 'v')) || (github.event_name == 'workflow_dispatch' && github.event.inputs.environment == 'Staging')
     uses: ./.github/workflows/child.yml
     with:
       environment: Staging
