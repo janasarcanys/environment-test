@@ -60,20 +60,20 @@ jobs:
     secrets: inherit
     
 
-  # call-DEV:
-  #   if: github.event.inputs.environment == 'Staging'
-  #   uses: ./.github/workflows/child.yml
-  #   with:
-  #     environment: development
-  #   permissions:
-  #     actions: read
-  #     id-token: write
-  #     contents: read
-  #   secrets: inherit
+  call-DEV:
+    if: github.event.inputs.environment == 'development'
+    uses: ./.github/workflows/child.yml
+    with:
+      environment: development
+    permissions:
+      actions: read
+      id-token: write
+      contents: read
+    secrets: inherit
 
   DeployToStaging:
-  name: Deploy to Staging
-  if: github.event_name == 'release' && startsWith(github.event.release.tag_name, 'v')
+    name: Deploy to Staging
+    if: github.event_name == 'release' && startsWith(github.event.release.tag_name, 'v')
     uses: ./.github/workflows/child.yml
     with:
       environment: Staging
