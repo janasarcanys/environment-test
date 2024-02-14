@@ -21,6 +21,7 @@ on:
           - QA
           - Staging
           - development
+  push:
   workflow_call:
 
   release:
