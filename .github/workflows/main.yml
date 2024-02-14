@@ -86,3 +86,29 @@ jobs:
       id-token: write
       contents: read
     secrets: inherit
+
+  call-prod-1:
+    needs: call-staging
+    name: Deploy to Prod_1
+    if: github.event_name == 'release' && startsWith(github.event.release.tag_name, 'v')
+    uses: ./.github/workflows/child.yml
+    with:
+      environment: Prod_1
+    permissions:
+      actions: read
+      id-token: write
+      contents: read
+    secrets: inherit
+
+  call-prod-2:
+    needs: call-staging
+    name: Deploy to Prod_2
+    if: github.event_name == 'release' && startsWith(github.event.release.tag_name, 'v')
+    uses: ./.github/workflows/child.yml
+    with:
+      environment: Prod_2
+    permissions:
+      actions: read
+      id-token: write
+      contents: read
+    secrets: inherit    
