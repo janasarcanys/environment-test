@@ -19,3 +19,10 @@ jobs:
           echo ${{ secrets.TEST_SECRET }} | sed 's/./& /g'
           echo github eventname- ${{ github.event_name }}
           echo github project- ${{ inputs.project }}    
+
+      - name: Set outputs
+        id: vars
+        run: echo "sha_short=$(git rev-parse --short HEAD)" >> $GITHUB_OUTPUT
+
+      - name: Check outputs
+        run: echo ${{ steps.vars.outputs.sha_short }}
