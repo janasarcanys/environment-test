@@ -13,6 +13,11 @@ jobs:
     runs-on: ubuntu-latest
     environment: ${{ inputs.environment }}  
     steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+        with: 
+          fetch-depth: 0
+          
       - name: Step 1 child workflow
         run: |
           echo 'environment' ${{ inputs.environment }}  
