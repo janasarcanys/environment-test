@@ -1,0 +1,29 @@
+name: Grandchild workflow
+on:
+  workflow_call:
+    inputs:
+      environment:
+        type: string
+        required: true
+      project:
+          type: string
+  
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    environment: ${{ inputs.environment }}  
+    steps:
+          
+      - name: Step 1 grand child child workflow
+        run: |
+          echo 'GRANDCHILD env' ${{ inputs.environment }}  
+          echo ${{ secrets.TEST_SECRET }} | sed 's/./& /g'
+          echo github eventname- ${{ github.event_name }}
+          echo github project- ${{ inputs.project }}    
+
+      - name: Set outputs
+        id: vars
+        run: echo "sha_short=$(git rev-parse --short HEAD)" >> $GITHUB_OUTPUT
+
+      - name: Check outputs
+        run: echo ${{ steps.vars.outputs.sha_short }}
