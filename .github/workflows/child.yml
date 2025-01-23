@@ -31,3 +31,15 @@ jobs:
 
       - name: Check outputs
         run: echo ${{ steps.vars.outputs.sha_short }}
+
+  run-grandchild:
+    uses: ./.github/workflows/grandchild.yml
+    name: Run Grandchild
+    needs: deploy
+    with:
+      environment: ${{ inputs.environment }}
+    permissions:
+      actions: read
+      id-token: write
+      contents: read
+    
